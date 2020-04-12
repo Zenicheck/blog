@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <ul>
+    <li><a href="/" class="{{# if (eq req.originalUrl '/') }}active{{/if}}">Accueil</a></li>
+    <li><a href="/service" class="{{# if (isActive req.originalUrl '/service') }}active{{/if}}">Nos expertises</a></li>
+    <li><a href="/contact" class="{{# if (isActive req.originalUrl '/contact') }}active{{/if}}">Nous contacter</a></li>
+  </ul>
+  {{{body}}}
+</body>
+
+</html>
