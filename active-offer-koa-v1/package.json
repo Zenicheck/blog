@@ -1,0 +1,30 @@
+{
+  "name": "active-offer-koa",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-modules --experimental-json-modules bin/www.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zenicheck/blog.git"
+  },
+  "author": "Yann Carlen - Zenicheck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zenicheck/blog/issues"
+  },
+  "homepage": "https://github.com/Zenicheck/blog#readme",
+  "dependencies": {
+    "@koa/router": "^9.0.0",
+    "bcrypt": "^4.0.1",
+    "dotenv": "^8.2.0",
+    "firebase-admin": "^8.10.0",
+    "koa": "^2.11.0",
+    "koa-ejs": "^4.3.0",
+    "koa-logger": "^3.2.1",
+    "koa-static": "^5.0.0"
+  }
+}
