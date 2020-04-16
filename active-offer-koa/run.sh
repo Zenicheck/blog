@@ -1,3 +1,3 @@
 #!/bin/sh
 
-PORT=8900 npx nodemon bin/www --watch routes --watch views --watch helpers --watch app.js
+PORT=8900 npx nodemon --experimental-modules --experimental-json-modules bin/www.mjs --watch routes --watch views --watch helpers --watch app.mjs
