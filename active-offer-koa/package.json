@@ -18,12 +18,13 @@
   },
   "homepage": "https://github.com/Zenicheck/blog#readme",
   "dependencies": {
-    "@koa/router": "^9.0.0",
     "bcrypt": "^4.0.1",
     "dotenv": "^8.2.0",
     "firebase-admin": "^8.10.0",
     "koa": "^2.11.0",
+    "koa-bodyparser": "^4.3.0",
     "koa-ejs": "^4.3.0",
+    "koa-joi-router": "^6.0.2",
     "koa-logger": "^3.2.1",
     "koa-static": "^5.0.0"
   }

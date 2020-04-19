@@ -1,6 +1,8 @@
-import Router from '@koa/router'
+import Router from 'koa-joi-router'
 
-const router = new Router({ prefix: '/public' })
+const router = Router()
+
+router.prefix('/public')
 
 router.get('/', async ctx => await ctx.render('index', { layout: false, ctx, title : 'Offre du moment' }))
 

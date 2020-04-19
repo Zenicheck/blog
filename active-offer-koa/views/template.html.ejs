@@ -41,9 +41,8 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item <% if (ctx.request.url.split('?')[0] == '/adm') { %>active<% } %>">
                 <a class="nav-link" href="/adm">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -58,10 +57,15 @@
             </div>
 
             <!-- Nav Item - Offers -->
-            <li class="nav-item">
+            <li class="nav-item  <% if (ctx.request.url.indexOf('/adm/offer') != -1) { %>active<% } %>">
                 <a class="nav-link" href="/adm/offer">
                     <i class="fas fa-fw fa-ad"></i>
                     <span>offres</span></a>
+            </li>
+            <li class="nav-item  <% if (ctx.request.url.indexOf('/adm/offer/add') != -1) { %>active<% } %>">
+                <a class="nav-link" href="/adm/offer/add">
+                    <i class="fas fa-fw fa-ad"></i>
+                    <span>ajouter une offre</span></a>
             </li>
 
             <!-- Divider -->
@@ -176,6 +180,12 @@
 
     <!-- Page level plugins -->
     <script src="/vendor/chart.js/Chart.min.js"></script>
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/js/app.js"></script>
+
 </body>
 
 </html>
