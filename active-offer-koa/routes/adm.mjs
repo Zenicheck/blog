@@ -54,12 +54,14 @@ router.post('/offer/store', {
             return await ctx.render('adm-offer-action', { ctx, errors: ctx.invalid.body, title: 'Editer une offre', offer })
         }
         await editOffer(ctx.db)(offer.id)({ ...ctx.request.body, offerPublished: offer.offerPublished })
+        ctx.flash('info', 'Offre modifiée')
         return ctx.redirect('/adm/offer')
     }
     if (ctx.invalid) {
         return await ctx.render('adm-offer-action', { ctx, errors: ctx.invalid.body, title: 'Ajouter une offre' })
     }
     await saveOffer(ctx.db)(ctx.request.body)
+    ctx.flash('info', 'Offre créée')
     ctx.redirect('/adm/offer')
 })
 
@@ -77,6 +79,7 @@ router.post('/offer/unstore', {
     const [valid, _] = await findOffer(ctx.db)(ctx.request.body.offerId)
     if (!valid) return ctx.status = 404
     await deleteOffer(ctx.db)(ctx.request.body.offerId)
+    ctx.flash('info', 'Offre supprimée')
     ctx.redirect('/adm/offer')
 })
 
@@ -95,6 +98,11 @@ router.post('/offer/release', {
     if (!valid) return ctx.status = 404
     const offer = { ...e.data() }
     await editOffer(ctx.db)(ctx.request.body.offerId)({ ...offer, offerPublished: !offer.offerPublished })
+    if (offer.offerPublished) {
+        ctx.flash('info', 'Offre dépubliée')
+    } else {
+        ctx.flash('info', 'Offre publiée')
+    }
     ctx.redirect('/adm/offer')
 })
 

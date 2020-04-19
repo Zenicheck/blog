@@ -3,6 +3,8 @@ import Koa from 'koa'
 import ejs from 'koa-ejs'
 import logger from 'koa-logger'
 import _static from 'koa-static'
+import session from 'koa-generic-session'
+import flash from 'koa-better-flash'
 import bodyparser from 'koa-bodyparser'
 import admin from 'firebase-admin'
 import dotenv from 'dotenv'
@@ -30,19 +32,26 @@ app.context.db = db
 app.context.config = config
 app.context.title = 'Gestion de vos offres commerciales'
 
-app.keys = [ config.KEYS_1, config.KEYS_2 ];
+app.keys = [config.KEYS_1, config.KEYS_2]
 
 ejs(app, {
-    root: path.join(__dirname, 'views'),
-    layout: 'template',
-    viewExt: 'html.ejs',
-    cache: false, //TODO turn on for production
-    debug: false, //TODO turn off for profuction
+  root: path.join(__dirname, 'views'),
+  layout: 'template',
+  viewExt: 'html.ejs',
+  cache: false, //TODO turn on for production
+  debug: false, //TODO turn off for profuction
 })
 
 app.use(bodyparser())
 
+app.use(session({
+  prefix: '__sess:',
+  key: '__sid'
+}))
+
 app.use(logger())
+
+app.use(flash())
 
 app.use(_static(path.join(__dirname, 'public')))
 

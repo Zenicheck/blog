@@ -19,6 +19,11 @@
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .table-responsive {
+            overflow: inherit;
+        }
+    </style>
 
 </head>
 
@@ -119,6 +124,16 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <%- body %>
+                    <% var flash = ctx.flash('info') %>
+                    <% flash.forEach(function (e) { %>
+                    <div class="col-lg-3 mb-3 flash" style="margin-top: 50px;">
+                        <div class="card bg-success text-white shadow">
+                            <div class="card-body">
+                                <%- e %>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
                 </div>
                 <!-- /.container-fluid -->
 
