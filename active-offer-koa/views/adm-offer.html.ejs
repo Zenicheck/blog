@@ -8,7 +8,6 @@
                     <tr>
                         <th>Titre</th>
                         <th>Lien</th>
-                        <th>Date de fin</th>
                         <th>Mise en avant</th>
                         <th>Action</th>
                     </tr>
@@ -17,7 +16,6 @@
                     <tr>
                         <th>Titre</th>
                         <th>Lien</th>
-                        <th>Date de fin</th>
                         <th>Mise en avant</th>
                         <th>Action</th>
                     </tr>
@@ -25,10 +23,29 @@
                 <tbody>
                     <% offers.forEach(function (e) { %>
                     <tr>
-                        <td><%- e.title %></td>
-                        <td><%- e.link %></td>
-                        <td><%- e.published %></td>
-                        <td></td>
+                        <td><%- e.offerTitle %></td>
+                        <td><%- e.offerLink %></td>
+                        <td><% if (!e.offerPublished) { %>
+                            <span class="btn btn-info">Non</span>
+                            <% } else { %>
+                            <span class="btn btn-success">Oui</span>
+                            <% } %>
+                        </td>
+                        <!-- Add label -->
+                        <td>
+                            <a href="/adm/offer/edit/<%= e.id %>" class="btn btn-primary"><span class="text"
+                                    style="color:azure;">Editer</span></a>
+                            <% if (e.offerPublished) { %>
+                            <a href="/adm/offer/publish/<%= e.id %>" class="btn btn-danger"><span class="text"
+                                    style="color:azure;">Dépublier</span></a>
+                            <% } else { %>
+                            <a href="/adm/offer/publish/<%= e.id %>" class="btn btn-success"><span class="text"
+                                    style="color:azure;">Publier</span></a>
+                            <% } %>
+                            <a href="/adm/offer/delete/<%= e.id %>" class="btn btn-warning"><span class="text"
+                                    style="color:azure;">Supprimer</span></a>
+                            <!-- Add link -->
+                        </td>
                     </tr>
                     <% }) %>
                 </tbody>
