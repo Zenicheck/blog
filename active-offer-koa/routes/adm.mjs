@@ -1,4 +1,5 @@
 import Router from 'koa-joi-router'
+import { authenticated } from '../helpers/middleware.mjs'
 import { saveOffer, getOffer, findOffer, editOffer, deleteOffer } from '../helpers/offerRepository.mjs'
 
 const Joi = Router.Joi
@@ -20,19 +21,19 @@ router.param('id', async (id, ctx, next) => {
     await next()
 })
 
-router.get('/', async ctx => await ctx.render('adm', { ctx, title: 'Adm' }))
+router.get('/', authenticated(), async ctx => await ctx.render('adm', { ctx, title: 'Adm' }))
 
-router.get('/offer', async ctx => {
+router.get('/offer', authenticated(), async ctx => {
     await ctx.render('adm-offer', { ctx, title: 'Listes des offres', offers: await getOffer(ctx.db) })
 })
 
-router.get('/offer/add', async ctx => await ctx.render('adm-offer-action', { ctx, title: 'Ajouter une offre' }))
+router.get('/offer/add', authenticated(), async ctx => await ctx.render('adm-offer-action', { ctx, title: 'Ajouter une offre' }))
 
-router.get('/offer/edit/:id', async ctx => await ctx.render('adm-offer-action', { ctx, title: 'Editer l\'offre', offer: ctx.offer }))
+router.get('/offer/edit/:id', authenticated(), async ctx => await ctx.render('adm-offer-action', { ctx, title: 'Editer l\'offre', offer: ctx.offer }))
 
-router.get('/offer/delete/:id', async ctx => await ctx.render('adm-offer-action', { ctx, title: 'Editer l\'offre', offer: ctx.offer, delete: true }))
+router.get('/offer/delete/:id', authenticated(), async ctx => await ctx.render('adm-offer-action', { ctx, title: 'Editer l\'offre', offer: ctx.offer, delete: true }))
 
-router.get('/offer/publish/:id', async ctx => await ctx.render('adm-offer-action', { ctx, title: 'Publier l\'offre', offer: ctx.offer, publish: true }))
+router.get('/offer/publish/:id', authenticated(), async ctx => await ctx.render('adm-offer-action', { ctx, title: 'Publier l\'offre', offer: ctx.offer, publish: true }))
 
 router.post('/offer/store', {
     validate: {
@@ -45,7 +46,7 @@ router.post('/offer/store', {
         },
         ...joiDefault
     }
-}, async ctx => {
+}, authenticated(), async ctx => {
     if (ctx.request.body.offerId) {
         const [valid, e] = await findOffer(ctx.db)(ctx.request.body.offerId)
         if (!valid) return ctx.status = 404
@@ -72,7 +73,7 @@ router.post('/offer/unstore', {
         },
         ...joiDefault
     }
-}, async ctx => {
+}, authenticated(), async ctx => {
     if (ctx.invalid) {
         return ctx.redirect('/adm/offer')
     }
@@ -90,7 +91,7 @@ router.post('/offer/release', {
         },
         ...joiDefault
     }
-}, async ctx => {
+}, authenticated(), async ctx => {
     if (ctx.invalid) {
         return ctx.redirect('/adm/offer')
     }

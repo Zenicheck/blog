@@ -6,11 +6,13 @@ import _static from 'koa-static'
 import session from 'koa-generic-session'
 import flash from 'koa-better-flash'
 import bodyparser from 'koa-bodyparser'
+import passport from 'koa-passport'
 import admin from 'firebase-admin'
 import dotenv from 'dotenv'
 
 import indexRouter from './routes/index.mjs'
 import admRouter from './routes/adm.mjs'
+import soRouter from './routes/so.mjs'
 
 const __dirname = path.resolve()
 
@@ -49,6 +51,10 @@ app.use(session({
   key: '__sid'
 }))
 
+import './helpers/so.mjs'
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use(logger())
 
 app.use(flash())
@@ -56,8 +62,8 @@ app.use(flash())
 app.use(_static(path.join(__dirname, 'public')))
 
 app.use(indexRouter.middleware())
-
 app.use(admRouter.middleware())
+app.use(soRouter.middleware())
 
 
 export default app
