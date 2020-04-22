@@ -21,7 +21,15 @@ const init = async () => {
         method: 'GET',
         path: '/',
         handler: async (request, h) => axios.get(HOST + '/pages', { params })
-            .then(e => e.data.data)
+            .then(e => e.data.data.map(e => ({
+                permalink: e.permalink,
+                title: e.title,
+                description: e.description,                
+                category: e.category,
+                coverImage: e.coverImage,
+                tags: e.tags,
+                date: e.date
+            })))
             .catch(() => Boom.badRequest('invalid query')),
         options: {
             cache: {
