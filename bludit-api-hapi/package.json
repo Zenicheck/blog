@@ -1,0 +1,25 @@
+{
+  "name": "bludit-api-hapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --experimental-modules --experimental-json-modules app.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zenicheck/blog.git"
+  },
+  "author": "Yann Carlen - Zenicheck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zenicheck/blog/issues"
+  },
+  "homepage": "https://github.com/Zenicheck/blog#readme",
+  "dependencies": {
+    "@hapi/boom": "^9.1.0",
+    "@hapi/hapi": "^19.1.1",
+    "axios": "^0.19.2"
+  }
+}
