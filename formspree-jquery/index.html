@@ -23,45 +23,39 @@
         <div class="row">
             <div class="col-md-12 order-md-1">
                 <h4 class="mb-3">Un projet de création de site internet ? Une question ou une demande de devis ?</h4>
-                <form class="needs-validation" novalidate>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName" class="required-label">First name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Veuillez entrer votre nom
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName" class="required-label">Last name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Veuillez enter votre prénom
-                            </div>
-                        </div>
-                    </div>
-
+                <form class="needs-validation" id="contact-form" action="https://formspree.io/xpzyaage" method="POST"
+                    novalidate>
                     <div class="mb-3">
-                        <label for="email" class="required-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="" required>
+                        <label for="contactName" class="required-label">Nom & Prénom (& soctiété)</label>
+                        <input type="text" class="form-control" id="contactName" name="contactName" placeholder=""
+                            required>
                         <div class="invalid-feedback">
-                            Veullez entrer votre adresse mail
+                            Veuillez entrer votre nom
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="message" class="required-label">Votre message</label>
-                        <textarea class="form-control" id="message" placeholder="" required></textarea>
+                        <label for="_replyto" class="required-label">E-mail</label>
+                        <input type="email" class="form-control" id="_replyto" name="_replyto" placeholder="" required>
+                        <div class="invalid-feedback">
+                            Veullez entrer votre adresse e-mail
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contactMessage" class="required-label">Votre message</label>
+                        <textarea class="form-control" id="contactMessage" name="contactMessage" placeholder=""
+                            required></textarea>
                         <div class="invalid-feedback">
                             Veulliez entrez votre message
                         </div>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="same-address">
-                        <label class="custom-control-label" for="same-address">S'inscire à la newsletter</label>
+                        <input type="checkbox" class="custom-control-input" id="newsletter" name="newsletter">
+                        <label class="custom-control-label" for="newsletter">S'inscire à la newsletter</label>
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Envoyer</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit-btn">Envoyer</button>
                 </form>
             </div>
         </div>
@@ -71,9 +65,8 @@
                 <a href="https://yanncarlen.com" target="_blank">Yann Carlen</a></p>
         </footer>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
