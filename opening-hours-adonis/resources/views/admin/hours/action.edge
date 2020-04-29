@@ -1,0 +1,203 @@
+@layout('master')
+
+@section('content')
+@include('admin.title')
+<!-- Content Row -->
+<div class="row card shadow col-sm-3">
+    <div class="card-body">
+        @if(_delete)
+        <form class="user" action="/adm/hour/unstore" method="POST">
+            @if(hour)
+            <input type="hidden" name="hourId" value="<%= hour.id %>">
+            @endif
+            <p><%- hour.hourDay %></p>
+            <button type="submit" class="btn btn-primary btn-user btn-block">
+                Supprimer l'horaire
+            </button>
+            <hr>
+        </form>
+        <a href="/adm/hour" class="btn btn-warning">Non</a>
+        @elseif(_publish)
+        <form class="user" action="/adm/hour/release" method="POST">
+            @if(hour)
+            <input type="hidden" name="hourId" value="<%= hour.id %>">
+            @endif
+            <p><%- hour.hourDay %></p>
+            <button type="submit" class="btn btn-primary btn-user btn-block">
+                <% if (!hour.hourPublished) { %>Publier l'horaire<% } else { %>Dépublier l'horaire<% } %>
+            </button>
+            <hr>
+        </form>
+        <a href="/adm/hour" class="btn btn-warning">Non</a>
+        @else
+        <form class="user" action="/adm/hour/store" method="POST">
+            {{ csrfField() }}
+            @if(hour)
+            <input type="hidden" name="hourId" value="{{ hour.id }}">
+            @elseif(old('hourId', '') != '')
+            <input type="hidden" name="hourId" value="old('hourId', '')">
+            @endif
+            <div class="form-group row">
+                @if(hasErrorFor('hourDay'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourDay') }}
+                    </div>
+                </div>
+                @endif
+                <label style="display: inline; width: 100%;" for="hourDay">Jour</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-user" id="hourDay" name="hourDay"
+                        placeholder="Texte de la plage horaire"
+                        value="{{ old('hourDay', '') }}" required>
+                </div>
+                @if(hasErrorFor('hourOpeningMorning'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourOpeningMorning') }}
+                    </div>
+                </div>
+                @endif
+                @if(hasErrorFor('hourOpen'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourOpen') }}
+                    </div>
+                </div>
+                @endif
+                @set('_hourOpen', old('hourOpen', ''))
+                <label style="display: inline; width: 100%;" for="hourOpen">Ouvert</label>
+                <div class="input-group">
+                    <select name="hourOpen" id="hourOpen" required>
+                        @if(!hour)
+                        <option value="true" {{ _hourOpen === 'true' ? 'selected' : '' }}>Oui</option>
+                        <option value="false"{{ _hourOpen === 'false' ? 'selected' : '' }}>Non</option>
+                        @else
+                        <option value="true">Oui</option>
+                        <option value="false">Non</option>
+                        @endif
+                    </select>
+                </div>
+                @if(hasErrorFor('hourMorningOpen'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourMorningOpen') }}
+                    </div>
+                </div>
+                @endif
+                @set('_hourMorningOpen', old('hourMorningOpen', ''))
+                <label style="display: inline; width: 100%;" for="hourMorningOpen">Ouvert le matin</label>
+                <div class="input-group">
+                    <select name="hourMorningOpen" id="hourMorningOpen" required>
+                        @if(!hour)
+                        <option value="true" {{ _hourMorningOpen === 'true' ? 'selected' : '' }}>Oui</option>
+                        <option value="false"{{ _hourMorningOpen === 'false' ? 'selected' : '' }}>Non</option>
+                        @else
+                        <option value="true">Oui</option>
+                        <option value="false">Non</option>
+                        @endif
+                    </select>
+                </div>
+                <label style="display: inline; width: 100%;" for="hourOpeningMorning">Matinée - Ouverture</label>
+                <div class="input-group">
+                    <input type="time" class="form-control form-control-user clockpicker" data-placement="right" data-align="top" data-autoclose="true" 
+                    id="hourOpeningMorning" name="hourOpeningMorning"
+                        placeholder="Texte de l'annonce"
+                        value="{{ old('hourOpeningMorning', '') }}">
+
+                </div>
+                @if(hasErrorFor('hourClosingMorning'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourClosingMorning') }}
+                    </div>
+                </div>
+                @endif
+                <label style="display: inline; width: 100%;" for="hourClosingMorning">Matinée - Fermeture</label>
+                <div class="input-group">
+                    <input type="time" class="form-control form-control-user clockpicker" data-placement="right" data-align="top" data-autoclose="true" 
+                    id="hourClosingMorning" name="hourClosingMorning"
+                        placeholder="Texte de l'annonce"
+                        value="{{ old('hourClosingMorning', '') }}">
+
+                </div>
+                @if(hasErrorFor('hourOpeningMorning'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourOpeningMorning') }}
+                    </div>
+                </div>
+                @endif
+                @if(hasErrorFor('hourBreakFastOpening'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourBreakFastOpening') }}
+                    </div>
+                </div>
+                @endif
+                @set('_hourBreakFastOpening', old('hourBreakFastOpening', ''))
+                <label style="display: inline; width: 100%;" for="hourBreakFastOpening">Ouvert entre midi et deux</label>
+                <div class="input-group">
+                    <select name="hourBreakFastOpening" id="hourBreakFastOpening" required>
+                        @if(!hour)
+                        <option value="true" {{ _hourBreakFastOpening === 'true' ? 'selected' : '' }}>Oui</option>
+                        <option value="false" {{ _hourBreakFastOpening === 'false' ? 'selected' : '' }}>Non</option>
+                        @else
+                        <option value="true">Oui</option>
+                        <option value="false">Non</option>
+                        @endif
+                    </select>
+                </div>
+                @if(hasErrorFor('hourAfternoonOpen'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourAfternoonOpen') }}
+                    </div>
+                </div>
+                @endif
+                @set('_hourAfternoonOpen', old('hourAfternoonOpen', ''))
+                <label style="display: inline; width: 100%;" for="hourAfternoonOpen">Ouvert l'après-midi</label>
+                <div class="input-group">
+                    <select name="hourAfternoonOpen" id="hourAfternoonOpen" required>
+                        @if(!hour)
+                        <option value="true" {{ _hourAfternoonOpen === 'true' ? 'selected' : '' }}>Oui</option>
+                        <option value="false"{{ _hourAfternoonOpen === 'false' ? 'selected' : '' }}>Non</option>
+                        @else
+                        <option value="true">Oui</option>
+                        <option value="false">Non</option>
+                        @endif
+                    </select>
+                </div>
+                <label style="display: inline; width: 100%;" for="hourOpeningAfternoon">Après-midi - Ouverture</label>
+                <div class="input-group">
+                    <input type="time" class="form-control form-control-user clockpicker" data-placement="right" data-align="top" data-autoclose="true" 
+                    id="hourOpeningAfternoon" name="hourOpeningAfternoon"
+                        placeholder="Texte de l'annonce"
+                        value="{{ old('hourOpeningAfternoon', '') }}">
+
+                </div>
+                @if(hasErrorFor('hourClosingAfternoon'))
+                <div class="card bg-danger text-white shadow" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        {{ getErrorFor('hourClosingAfternoon') }}
+                    </div>
+                </div>
+                @endif
+                <label style="display: inline; width: 100%;" for="hourClosingAfternoon">Après-midi - Fermeture</label>
+                <div class="input-group">
+                    <input type="time" class="form-control form-control-user clockpicker" data-placement="right" data-align="top" data-autoclose="true" 
+                    id="hourClosingAfternoon" name="hourClosingAfternoon"
+                        placeholder="Texte de l'annonce"
+                        value="{{ old('hourClosingAfternoon', '') }}">
+
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-user btn-block">
+                Ajouter l'horaire
+            </button>
+            <hr>
+        </form>
+        @endif
+    </div>
+</div>
+@endsection

@@ -1,37 +1,56 @@
-<div class="box">
-    <h1 class="title">Hour List</h1>
+@layout('master')
 
-      <table class="table is-bordered is-striped is-narrow is-fullwidth">
-        <thead>
-          <tr>
-            <th>SN</th>
-            <th>Title</th>
-            <th>Action</th> 
-          </tr>
-        </thead>
-        <tbody>
-          @each(hour in hours)
-            <tr>
-              <td>
-                {{ (hour.id) }}
-              </td>
-              <td>
-                {{ hour.day }}
-              </td>
-              <td>
-                <button class="button is-danger is-outlined">
-                  <span>DELETE</span>
-                  <span class="icon is-small">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                  </span>
-                </button>
-              </td>
-            </tr>
-          @else
-            <tr>
-              <td colspan="3" class="has-text-centered">No hour created yet!</td>
-            </tr>
-          @endeach
-        </tbody>
-      </table>
-  </div>
+@section('content')
+@set('extra', '<a href="/adm/hour/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-ad fa-sm text-white-50"></i> Ajouter une plage horaire</a>')
+@include('admin.title')
+<!-- Content Row -->
+<div class="row card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="hourTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Jour</th>
+                        <th>Visible</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Visible</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                  @each(e in hours)
+                    <tr>
+                        <td>{{ e.day }}</td>
+                        @if(!e.visible)
+                          <td><span class="btn btn-info">Non</span></td>
+                        @else
+                          <td><span class="btn btn-success">Oui</span></td>
+                        @endif
+                        <!-- Add label -->
+                        <td>
+                            <a href="/adm/hour/edit/{{ e.id }}" class="btn btn-primary"><span class="text"
+                                    style="color:azure;">Editer</span></a>
+                            @if(e.visible)
+                                <a href="/adm/hour/publish/{{ e.id }}" class="btn btn-danger"><span class="text"
+                                        style="color:azure;">Dépublier</span></a>
+                            @else
+                                <a href="/adm/hour/publish/{{ e.id }}" class="btn btn-success"><span class="text"
+                                        style="color:azure;">Publier</span></a>
+                            @endif
+                            <a href="/adm/hour/delete/{{ e.id }}" class="btn btn-warning"><span class="text"
+                                    style="color:azure;">Supprimer</span></a>
+                            <!-- Add link -->
+                        </td>
+                    </tr>
+                    @endeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection

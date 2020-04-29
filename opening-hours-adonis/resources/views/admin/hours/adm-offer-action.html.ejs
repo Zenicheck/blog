@@ -1,0 +1,54 @@
+<%- include('title', { title }); %>
+<!-- Content Row -->
+<div class="row card shadow  col-sm-3">
+    <div class="card-body">
+        <%- include('error'); %>
+        <% if (locals.delete) { %>
+        <form class="user" action="/adm/offer/unstore" method="POST">
+            <% if (locals.offer) { %>
+            <input type="hidden" name="offerId" value="<%= offer.id %>">
+            <% } %>
+            <p><%- offer.offerTitle %></p>
+            <button type="submit" class="btn btn-primary btn-user btn-block">
+                Supprimer l'offre
+            </button>
+            <hr>
+        </form>
+        <a href="/adm/offer" class="btn btn-warning">Non</a>
+        <% } else if (locals.publish) { %>
+        <form class="user" action="/adm/offer/release" method="POST">
+            <% if (locals.offer) { %>
+            <input type="hidden" name="offerId" value="<%= offer.id %>">
+            <% } %>
+            <p><%- offer.offerTitle %></p>
+            <button type="submit" class="btn btn-primary btn-user btn-block">
+                <% if (!offer.offerPublished) { %>Publier l'offre<% } else { %>Dépublier l'offre<% } %>
+            </button>
+            <hr>
+        </form>
+        <a href="/adm/offer" class="btn btn-warning">Non</a>
+        <% } else { %>
+        <form class="user" action="/adm/offer/store" method="POST">
+            <% if (locals.offer) { %>
+            <input type="hidden" name="offerId" value="<%= offer.id %>">
+            <% } else if (ctx.request.body.offerId) { %>
+            <input type="hidden" name="offerId" value="<%= offerId %>">
+            <% } %>
+            <div class="form-group row">
+                <input type="text" class="form-control form-control-user" id="offerTitle" name="offerTitle"
+                    placeholder="Texte de l'annonce"
+                    value="<% if (ctx.request.body.offerTitle) { %><%= ctx.request.body.offerTitle %><% }%>" required>
+            </div>
+            <div class="form-group row">
+                <input type="url" class="form-control form-control-user" id="offerLink" placeholder="Lien de l'annonce"
+                    name="offerLink"
+                    value="<% if (ctx.request.body.offerLink) { %><%= ctx.request.body.offerLink %><% }%>" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-user btn-block">
+                Ajouter l'offre
+            </button>
+            <hr>
+        </form>
+        <% } %>
+    </div>
+</div>
